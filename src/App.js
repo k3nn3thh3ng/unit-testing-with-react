@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import OrderEntry from "./pages/entry/OrderEntry";
+import OrderSummary from "./pages/summary/OrderSummary";
+import OrderConfirmation from "./pages/confirmation/OrderConfirmation";
+import { Route, Switch } from "react-router-dom";
+import { OrderDetailsProvider } from "./contexts/OrderDetails";
+
+const NoMatch = () => <h1>No Match Available</h1>;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <OrderDetailsProvider>
+      <Switch>
+        <Route exact path="/">
+          <OrderEntry />
+        </Route>
+
+        <Route path="/summary">
+          <OrderSummary />
+        </Route>
+
+        <Route path="/confirmation">
+          <OrderConfirmation />
+        </Route>
+
+        <Route path="*">
+          <NoMatch />
+        </Route>
+      </Switch>
+    </OrderDetailsProvider>
   );
 }
 
